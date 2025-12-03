@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.projectkamberinesludogame.ludogame.GameController">
+    <top>
+        <VBox alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+         <HBox alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="100.0" spacing="15.0">
+            <children>
+             <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#onSaveClick" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold;" text="Save" />
+               <Button fx:id="loadBtn" mnemonicParsing="false" onAction="#onLoadClick" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-weight: bold;" text="Load" />
+            </children>
+         </HBox>
+
+            <Label fx:id="statusLabel" text="Waiting for connection...">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+
+            <HBox alignment="CENTER" spacing="20.0">
+                <Label fx:id="diceLabel" text="Dice: -">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+
+                <Button fx:id="rollButton" disable="true" mnemonicParsing="false" onAction="#onRollDice" style="-fx-background-color: purple; -fx-text-fill: white; -fx-font-weight: bold;" text="ROLL DICE" textAlignment="CENTER">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Button>
+            </HBox>
+        </VBox>
+    </top>
+   <center>
+        <GridPane fx:id="boardGrid" alignment="CENTER" gridLinesVisible="false" style="-fx-background-color: linear-gradient(to bottom, #94BCEB,  #EBA996);" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+
+            <!-- RED HOME AREA (Top-Left) -->
+            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EBA996; -fx-border-color: #C48D80; -fx-border-width: 1;" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="1" GridPane.rowSpan="4">
+                <Label layoutX="58.0" layoutY="88.0" text="RED HOME">
+                    <font><Font name="System Bold" size="16.0" /></font>
+                </Label>
+                <!-- RED Home positions for pieces -->
+                <Circle fx:id="redHome0" fill="lightgray" layoutX="35.0" layoutY="35.0" onMouseClicked="#onPieceClick" radius="20" stroke="#ddd291" strokeWidth="2" />
+                <Circle fx:id="redHome1" fill="lightgray" layoutX="35.0" layoutY="165.0" onMouseClicked="#onPieceClick" radius="20" stroke="#ddd291" strokeWidth="2" />
+                <Circle fx:id="redHome2" fill="lightgray" layoutX="167.0" layoutY="35.0" onMouseClicked="#onPieceClick" radius="20" stroke="#ddd291" strokeWidth="2" />
+                <Circle fx:id="redHome3" fill="lightgray" layoutX="167.0" layoutY="165.0" onMouseClicked="#onPieceClick" radius="20" stroke="#ddd291" strokeWidth="2" />
+            </Pane>
+
+            <!-- BLUE HOME AREA (Bottom-Right) -->
+            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #94BCEB; -fx-border-color: #80A0C4; -fx-border-width: 2;" GridPane.columnIndex="10" GridPane.columnSpan="4" GridPane.rowIndex="10" GridPane.rowSpan="4">
+                <Label layoutX="54.0" layoutY="88.0" text="BLUE HOME">
+                    <font><Font name="System Bold" size="16.0" /></font>
+                </Label>
+                <!-- BLUE Home positions for pieces -->
+                <Circle fx:id="blueHome0" fill="lightgray" layoutX="35.0" layoutY="35.0" onMouseClicked="#onPieceClick" radius="20" stroke="#ddd291" strokeWidth="2" />
+                <Circle fx:id="blueHome1" fill="lightgray" layoutX="35.0" layoutY="165.0" onMouseClicked="#onPieceClick" radius="20" stroke="#ddd291" strokeWidth="2" />
+                <Circle fx:id="blueHome2" fill="lightgray" layoutX="165.0" layoutY="35.0" onMouseClicked="#onPieceClick" radius="20" stroke="#ddd291" strokeWidth="2" />
+                <Circle fx:id="blueHome3" fill="lightgray" layoutX="165.0" layoutY="165.0" onMouseClicked="#onPieceClick" radius="20" stroke="#ddd291" strokeWidth="2" />
+            </Pane>
+
+            <!-- PATH CELLS -->
+            <!-- (RED start) -->
+            <Pane fx:id="cell0" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+            <Pane fx:id="cell1" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+            <Pane fx:id="cell2" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+            <Pane fx:id="cell3" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="6" GridPane.rowIndex="4" />
+            <Pane fx:id="cell4" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="6" GridPane.rowIndex="5" />
+            <Pane fx:id="cell5" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="6" GridPane.rowIndex="6" />
+
+            <!-- Left path -->
+            <Pane fx:id="cell6" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="5" GridPane.rowIndex="6" />
+            <Pane fx:id="cell7" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+            <Pane fx:id="cell8" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+            <Pane fx:id="cell9" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <Pane fx:id="cell10" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Pane fx:id="cell11" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+            <Pane fx:id="cell12" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+
+            <!-- Up path (left side) -->
+            <Pane fx:id="cell13" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.rowIndex="8" />
+            <Pane fx:id="cell14" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <Pane fx:id="cell15" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+            <Pane fx:id="cell16" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+            <Pane fx:id="cell17" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="4" GridPane.rowIndex="8" />
+            <Pane fx:id="cell18" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="5" GridPane.rowIndex="8" />
+            <Pane fx:id="cell19" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="6" GridPane.rowIndex="8" />
+            <Pane fx:id="cell20" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="6" GridPane.rowIndex="9" />
+            <Pane fx:id="cell21" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="6" GridPane.rowIndex="10" />
+            <Pane fx:id="cell22" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="6" GridPane.rowIndex="11" />
+            <Pane fx:id="cell23" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="6" GridPane.rowIndex="12" />
+            <Pane fx:id="cell24" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="6" GridPane.rowIndex="13" />
+            <Pane fx:id="cell25" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="6" GridPane.rowIndex="14" />
+            <Pane fx:id="cell26" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="7" GridPane.rowIndex="14" />
+            <Pane fx:id="cell27" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: blue; -fx-border-color: gray;" GridPane.columnIndex="8" GridPane.rowIndex="14">
+                   <Label layoutX="8.0" layoutY="17.0" style="-fx-text-fill: white; -fx-font-weight: bold;" text="START" />
+            </Pane>
+            <Pane fx:id="cell28" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="8" GridPane.rowIndex="13" />
+
+            <!-- Right side down -->
+            <Pane fx:id="cell18" prefHeight="50.0" prefWidth="50.0" GridPane.columnIndex="5" GridPane.rowIndex="8" />
+            <Pane fx:id="cell29" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="8" GridPane.rowIndex="12" />
+            <Pane fx:id="cell30" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="8" GridPane.rowIndex="11" />
+            <Pane fx:id="cell31" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="8" GridPane.rowIndex="10" />
+            <Pane fx:id="cell32" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="8" GridPane.rowIndex="9" />
+            <Pane fx:id="cell33" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="8" GridPane.rowIndex="8" />
+            <Pane fx:id="cell34" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="9" GridPane.rowIndex="8" />
+            <Pane fx:id="cell35" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="10" GridPane.rowIndex="8" />
+            <Pane fx:id="cell36" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="11" GridPane.rowIndex="8" />
+            <Pane fx:id="cell37" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="12" GridPane.rowIndex="8" />
+            <Pane fx:id="cell38" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="13" GridPane.rowIndex="8" />
+            <Pane fx:id="cell39" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="14" GridPane.rowIndex="8" />
+            <Pane fx:id="cell40" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="14" GridPane.rowIndex="7" />
+            <Pane fx:id="cell41" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="14" GridPane.rowIndex="6" />
+            <Pane fx:id="cell42" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="13" GridPane.rowIndex="6" />
+            <Pane fx:id="cell43" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="12" GridPane.rowIndex="6" />
+            <Pane fx:id="cell44" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="11" GridPane.rowIndex="6" />
+            <Pane fx:id="cell45" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="10" GridPane.rowIndex="6" />
+            <Pane fx:id="cell46" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="9" GridPane.rowIndex="6" />
+            <Pane fx:id="cell47" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="8" GridPane.rowIndex="6" />
+            <Pane fx:id="cell48" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="8" GridPane.rowIndex="5" />
+            <Pane fx:id="cell49" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="8" GridPane.rowIndex="4" />
+            <Pane fx:id="cell50" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="8" GridPane.rowIndex="3" />
+            <Pane fx:id="cell51" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="8" GridPane.rowIndex="2" />
+            <Pane fx:id="cell52" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="8" GridPane.rowIndex="1" />
+            <Pane fx:id="cell53" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="8" />
+            <Pane fx:id="cell54" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="7" />
+            <Pane fx:id="cell55" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: red; -fx-border-color: gray;" GridPane.columnIndex="6" GridPane.rowIndex="0">
+                <Label layoutX="5" layoutY="15" style="-fx-text-fill: white; -fx-font-weight: bold;" text="START" />
+            </Pane>
+            <Pane fx:id="blueFinish0" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #94BCEB; -fx-border-color: #80A0C4;" GridPane.columnIndex="7" GridPane.rowIndex="13" />
+            <Pane fx:id="blueFinish1" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #94BCEB; -fx-border-color: #80A0C4;" GridPane.columnIndex="7" GridPane.rowIndex="12" />
+            <Pane fx:id="blueFinish2" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #94BCEB; -fx-border-color: #80A0C4;" GridPane.columnIndex="7" GridPane.rowIndex="11" />
+            <Pane fx:id="blueFinish3" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #94BCEB; -fx-border-color: #80A0C4;" GridPane.columnIndex="7" GridPane.rowIndex="10" />
+            <Pane fx:id="redFinish3" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #EBA996; -fx-border-color: #C48D80;" GridPane.columnIndex="7" GridPane.rowIndex="4" />
+            <Pane fx:id="redFinish2" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #EBA996; -fx-border-color: #C48D80;" GridPane.columnIndex="7" GridPane.rowIndex="3" />
+            <Pane fx:id="redFinish1" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #EBA996; -fx-border-color: #C48D80;" GridPane.columnIndex="7" GridPane.rowIndex="2" />
+            <Pane fx:id="redFinish0" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #EBA996; -fx-border-color: #C48D80;" GridPane.columnIndex="7" GridPane.rowIndex="1" />
+         <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints />
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+         </rowConstraints>
+        </GridPane>
+   </center>
+    <bottom>
+
+    </bottom>
+</BorderPane>
