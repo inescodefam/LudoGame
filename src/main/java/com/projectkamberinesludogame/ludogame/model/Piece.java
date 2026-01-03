@@ -9,6 +9,8 @@ public class Piece implements  Serializable {
     public int color;
     public int position;
 
+    public Piece() {}
+
     Piece(int id, int color, int position) {
         this.id = id;
         this.color = color;

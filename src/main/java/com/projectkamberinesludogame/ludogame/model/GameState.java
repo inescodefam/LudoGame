@@ -7,6 +7,8 @@ import java.util.Map;
 public class GameState implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    // kod čitanja je dobro imati def construktor... da ne faila
+
     public Map<Integer, Piece> pieces = new HashMap<>();
     private int currentPlayer = 0;
     int lastDiceValue = 0;

@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ludo Game Documentation</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 20px; }
+table { border-collapse: collapse; width: 100%; margin-bottom: 30px; }
+th, td { border: 1px solid black; padding: 8px; text-align: left; }
+th { background-color: #4CAF50; color: white; }
+h2 { color: #2E86C1; margin-top: 30px; }
+h3 { color: #28B463; }
+.package { color: #666; font-style: italic; }
+</style>
+</head>
+<body>
+<h1>Ludo Game - Documentation</h1>
+<h2>Class: LudoGame</h2>
+<p class='package'>Package: com.projectkamberinesludogame.ludogame</p>
+<h3>Fields</h3>
+<table>
+<tr><th>Field Name</th><th>Type</th><th>Modifiers</th></tr>
+<tr><td>playerType</td><td>PlayerType</td><td>public static</td></tr>
+<tr><td>HOSTNAME</td><td>String</td><td>public static</td></tr>
+</table>
+<h3>Methods</h3>
+<table>
+<tr><th>Method Name</th><th>Return Type</th><th>Parameters</th><th>Modifiers</th></tr>
+<tr><td>main</td><td>void</td><td>String[] arg0</td><td>public static</td></tr>
+<tr><td>start</td><td>void</td><td>Stage arg0</td><td>public</td></tr>
+</table>
+<h2>Class: GameCallbackImpl</h2>
+<p class='package'>Package: com.projectkamberinesludogame.ludogame.controller</p>
+<h3>Fields</h3>
+<table>
+<tr><th>Field Name</th><th>Type</th><th>Modifiers</th></tr>
+<tr><td>this$0</td><td>GameController</td><td>final</td></tr>
+</table>
+<h3>Methods</h3>
+<table>
+<tr><th>Method Name</th><th>Return Type</th><th>Parameters</th><th>Modifiers</th></tr>
+<tr><td>lambda$onMoveReceived$1</td><td>void</td><td>String arg0</td><td>private</td></tr>
+<tr><td>lambda$onGameStart$0</td><td>void</td><td>None</td><td>private</td></tr>
+<tr><td>onGameStart</td><td>void</td><td>None</td><td>public</td></tr>
+<tr><td>onMoveReceived</td><td>void</td><td>String arg0</td><td>public</td></tr>
+</table>
+<h2>Class: GameController</h2>
+<p class='package'>Package: com.projectkamberinesludogame.ludogame.controller</p>
+<h3>Fields</h3>
+<table>
+<tr><th>Field Name</th><th>Type</th><th>Modifiers</th></tr>
+<tr><td>theLastGameMoveLabelID</td><td>Label</td><td>public</td></tr>
+<tr><td>loadBtn</td><td>Button</td><td>public</td></tr>
+<tr><td>saveBtn</td><td>Button</td><td>public</td></tr>
+<tr><td>docuBtn</td><td>Button</td><td>public</td></tr>
+<tr><td>rollButton</td><td>Button</td><td>private</td></tr>
+<tr><td>statusLabel</td><td>Label</td><td>private</td></tr>
+<tr><td>diceLabel</td><td>Label</td><td>private</td></tr>
+<tr><td>redHome0</td><td>Circle</td><td>private</td></tr>
+<tr><td>redHome1</td><td>Circle</td><td>private</td></tr>
+<tr><td>redHome2</td><td>Circle</td><td>private</td></tr>
+<tr><td>redHome3</td><td>Circle</td><td>private</td></tr>
+<tr><td>blueHome0</td><td>Circle</td><td>private</td></tr>
+<tr><td>blueHome1</td><td>Circle</td><td>private</td></tr>
+<tr><td>blueHome2</td><td>Circle</td><td>private</td></tr>
+<tr><td>blueHome3</td><td>Circle</td><td>private</td></tr>
+<tr><td>pathCells</td><td>Map</td><td>private</td></tr>
+<tr><td>redFinish0</td><td>Pane</td><td>private</td></tr>
+<tr><td>redFinish1</td><td>Pane</td><td>private</td></tr>
+<tr><td>redFinish2</td><td>Pane</td><td>private</td></tr>
+<tr><td>redFinish3</td><td>Pane</td><td>private</td></tr>
+<tr><td>blueFinish0</td><td>Pane</td><td>private</td></tr>
+<tr><td>blueFinish1</td><td>Pane</td><td>private</td></tr>
+<tr><td>blueFinish2</td><td>Pane</td><td>private</td></tr>
+<tr><td>blueFinish3</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell0</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell1</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell2</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell3</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell4</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell5</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell6</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell7</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell8</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell9</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell10</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell11</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell12</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell13</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell14</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell15</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell16</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell17</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell18</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell19</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell20</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell21</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell22</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell23</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell24</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell25</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell26</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell27</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell28</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell29</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell30</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell31</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell32</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell33</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell34</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell35</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell36</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell37</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell38</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell39</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell40</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell41</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell42</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell43</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell44</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell45</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell46</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell47</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell48</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell49</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell50</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell51</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell52</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell53</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell54</td><td>Pane</td><td>private</td></tr>
+<tr><td>cell55</td><td>Pane</td><td>private</td></tr>
+<tr><td>state</td><td>GameState</td><td>private</td></tr>
+<tr><td>playerColor</td><td>int</td><td>private</td></tr>
+<tr><td>diceValue</td><td>int</td><td>private</td></tr>
+<tr><td>pieceCircles</td><td>Map</td><td>private</td></tr>
+<tr><td>redHomeCircles</td><td>Circle[]</td><td>private</td></tr>
+<tr><td>blueHomeCircles</td><td>Circle[]</td><td>private</td></tr>
+<tr><td>RED_START_CELL</td><td>int</td><td>private static final</td></tr>
+<tr><td>BLUE_START_CELL</td><td>int</td><td>private static final</td></tr>
+<tr><td>TOTAL_PATH_CELLS</td><td>int</td><td>private static final</td></tr>
+<tr><td>HOME_STRETCH_ENTRY</td><td>int</td><td>private static final</td></tr>
+<tr><td>FINISH_POSITION</td><td>int</td><td>private static final</td></tr>
+<tr><td>RED_ENTRY_CELL</td><td>int</td><td>private static final</td></tr>
+<tr><td>BLUE_ENTRY_CELL</td><td>int</td><td>private static final</td></tr>
+<tr><td>gameService</td><td>GameRemoteService</td><td>private</td></tr>
+<tr><td>callbackImpl</td><td>GameCallbackImpl</td><td>private</td></tr>
+<tr><td>isSinglePlayer</td><td>boolean</td><td>private</td></tr>
+<tr><td>chatMessageTextField</td><td>TextField</td><td>private</td></tr>
+<tr><td>chatMessageTextArea</td><td>TextArea</td><td>private</td></tr>
+<tr><td>chatRemoteService</td><td>ChatRemoteService</td><td></td></tr>
+<tr><td>pane</td><td>BorderPane</td><td>private</td></tr>
+<tr><td>themeMenuButton</td><td>MenuButton</td><td>private</td></tr>
+<tr><td>themeDefault</td><td>MenuItem</td><td>private</td></tr>
+<tr><td>themeDark</td><td>MenuItem</td><td>private</td></tr>
+<tr><td>themeNature</td><td>MenuItem</td><td>private</td></tr>
+<tr><td>themeSunset</td><td>MenuItem</td><td>private</td></tr>
+<tr><td>themeOcean</td><td>MenuItem</td><td>private</td></tr>
+<tr><td>themePurple</td><td>MenuItem</td><td>private</td></tr>
+<tr><td>currentTheme</td><td>Theme</td><td>private</td></tr>
+</table>
+<h3>Methods</h3>
+<table>
+<tr><th>Method Name</th><th>Return Type</th><th>Parameters</th><th>Modifiers</th></tr>
+<tr><td>initialize</td><td>void</td><td>None</td><td>private</td></tr>
+<tr><td>onLoadClick</td><td>void</td><td>None</td><td>public</td></tr>
+<tr><td>getBlueFinishCell</td><td>Pane</td><td>int arg0</td><td>private</td></tr>
+<tr><td>onThemeChange</td><td>void</td><td>ActionEvent arg0</td><td>private</td></tr>
+<tr><td>handleOpponentMove</td><td>void</td><td>String arg0</td><td>private</td></tr>
+<tr><td>onCellClick</td><td>void</td><td>MouseEvent arg0</td><td>private</td></tr>
+<tr><td>checkAndCaptureAt</td><td>void</td><td>int arg0, int arg1, int arg2</td><td>private</td></tr>
+<tr><td>getCellForPosition</td><td>int</td><td>int arg0, int arg1</td><td>private</td></tr>
+<tr><td>onSaveClick</td><td>void</td><td>None</td><td>public</td></tr>
+<tr><td>isFinishSlotEmpty</td><td>boolean</td><td>int arg0, int arg1</td><td>private</td></tr>
+<tr><td>onPieceClick</td><td>void</td><td>MouseEvent arg0</td><td>private</td></tr>
+<tr><td>getStepsToEntry</td><td>int</td><td>int arg0, int arg1</td><td>private</td></tr>
+<tr><td>createPieceCircle</td><td>Circle</td><td>Piece arg0</td><td>private</td></tr>
+<tr><td>getCircleForPiece</td><td>Circle</td><td>int arg0</td><td>private</td></tr>
+<tr><td>getRedFinishCell</td><td>Pane</td><td>int arg0</td><td>private</td></tr>
+<tr><td>canMovePiece</td><td>boolean</td><td>Piece arg0</td><td>private</td></tr>
+<tr><td>loadPathCells</td><td>void</td><td>None</td><td>private</td></tr>
+<tr><td>updateStatus</td><td>void</td><td>String arg0</td><td>private</td></tr>
+<tr><td>performMove</td><td>void</td><td>int arg0, int arg1</td><td>private</td></tr>
+<tr><td>updateBoard</td><td>void</td><td>None</td><td>private</td></tr>
+<tr><td>connectToRMIServer</td><td>void</td><td>None</td><td>private</td></tr>
+<tr><td>applyTheme</td><td>void</td><td>Theme arg0</td><td>private</td></tr>
+<tr><td>setupBoard</td><td>void</td><td>None</td><td>private</td></tr>
+<tr><td>checkWin</td><td>boolean</td><td>int arg0</td><td>private</td></tr>
+<tr><td>showWinner</td><td>void</td><td>String arg0</td><td>private</td></tr>
+<tr><td>sendMessageButtonClick</td><td>void</td><td>None</td><td>public</td></tr>
+<tr><td>generateDocumentation</td><td>void</td><td>None</td><td>public</td></tr>
+<tr><td>getChatRefreshTimeline</td><td>Timeline</td><td>None</td><td>private</td></tr>
+<tr><td>highlightMovablePieces</td><td>void</td><td>None</td><td>private</td></tr>
+<tr><td>lambda$getChatRefreshTimeline$0</td><td>void</td><td>ActionEvent arg0</td><td>private</td></tr>
+<tr><td>movePiece</td><td>void</td><td>int arg0</td><td>private</td></tr>
+<tr><td>onRollDice</td><td>void</td><td>None</td><td>private</td></tr>
+</table>
+<h2>Class: ConfigurationKey</h2>
+<p class='package'>Package: com.projectkamberinesludogame.ludogame.jndi</p>
+<h3>Fields</h3>
+<table>
+<tr><th>Field Name</th><th>Type</th><th>Modifiers</th></tr>
+<tr><td>PLAYER_RED_SERVER_PORT</td><td>ConfigurationKey</td><td>public static final</td></tr>
+<tr><td>PLAYER_BLUE_SERVER_PORT</td><td>ConfigurationKey</td><td>public static final</td></tr>
+<tr><td>PLAYER_SINGLE_SERVER_PORT</td><td>ConfigurationKey</td><td>public static final</td></tr>
+<tr><td>HOSTNAME</td><td>ConfigurationKey</td><td>public static final</td></tr>
+<tr><td>RMI_PORT</td><td>ConfigurationKey</td><td>public static final</td></tr>
+<tr><td>key</td><td>String</td><td>private final</td></tr>
+<tr><td>$VALUES</td><td>ConfigurationKey[]</td><td>private static final</td></tr>
+</table>
+<h3>Methods</h3>
+<table>
+<tr><th>Method Name</th><th>Return Type</th><th>Parameters</th><th>Modifiers</th></tr>
+<tr><td>values</td><td>ConfigurationKey[]</td><td>None</td><td>public static</td></tr>
+<tr><td>valueOf</td><td>ConfigurationKey</td><td>String arg0</td><td>public static</td></tr>
+<tr><td>getKey</td><td>String</td><td>None</td><td>public</td></tr>
+<tr><td>$values</td><td>ConfigurationKey[]</td><td>None</td><td>private static</td></tr>
+</table>
+<h2>Class: ConfigurationReader</h2>
+<p class='package'>Package: com.projectkamberinesludogame.ludogame.jndi</p>
+<h3>Fields</h3>
+<table>
+<tr><th>Field Name</th><th>Type</th><th>Modifiers</th></tr>
+<tr><td>properties</td><td>Properties</td><td>private static</td></tr>
+</table>
+<h3>Methods</h3>
+<table>
+<tr><th>Method Name</th><th>Return Type</th><th>Parameters</th><th>Modifiers</th></tr>
+<tr><td>getStringForKey</td><td>String</td><td>ConfigurationKey arg0</td><td>public static</td></tr>
+<tr><td>getIntegerForKey</td><td>Integer</td><td>ConfigurationKey arg0</td><td>public static</td></tr>
+</table>
+<h2>Class: InitialDirContextClosable</h2>
+<p class='package'>Package: com.projectkamberinesludogame.ludogame.jndi</p>
+<h3>Fields</h3>
+<table>
+<tr><th>Field Name</th><th>Type</th><th>Modifiers</th></tr>
+<tr><td colspan='3'>No fields</td></tr>
+</table>
+<h3>Methods</h3>
+<table>
+<tr><th>Method Name</th><th>Return Type</th><th>Parameters</th><th>Modifiers</th></tr>
+<tr><td colspan='4'>No methods</td></tr>
+</table>
+<h2>Class: GameMove</h2>
+<p class='package'>Package: com.projectkamberinesludogame.ludogame.model</p>
+<h3>Fields</h3>
+<table>
+<tr><th>Field Name</th><th>Type</th><th>Modifiers</th></tr>
+<tr><td>serialVersionUID</td><td>long</td><td>private static final</td></tr>
+<tr><td>playerType</td><td>PlayerType</td><td>private</td></tr>
+<tr><td>position</td><td>Position</td><td>private</td></tr>
+</table>
+<h3>Methods</h3>
+<table>
+<tr><th>Method Name</th><th>Return Type</th><th>Parameters</th><th>Modifiers</th></tr>
+<tr><td>getPosition</td><td>Position</td><td>None</td><td>public</td></tr>
+<tr><td>getPlayerType</td><td>PlayerType</td><td>None</td><td>public</td></tr>
+</table>
+<h2>Class: GameState</h2>
+<p class='package'>Package: com.projectkamberinesludogame.ludogame.model</p>
+<h3>Fields</h3>
+<table>
+<tr><th>Field Name</th><th>Type</th><th>Modifiers</th></tr>
+<tr><td>serialVersionUID</td><td>long</td><td>private static final</td></tr>
+<tr><td>pieces</td><td>Map</td><td>public</td></tr>
+<tr><td>currentPlayer</td><td>int</td><td>private</td></tr>
+<tr><td>lastDiceValue</td><td>int</td><td></td></tr>
+<tr><td>playerWhoSaved</td><td>int</td><td></td></tr>
+</table>
+<h3>Methods</h3>
+<table>
+<tr><th>Method Name</th><th>Return Type</th><th>Parameters</th><th>Modifiers</th></tr>
+<tr><td>setLastDiceValue</td><td>void</td><td>int arg0</td><td>public</td></tr>
+<tr><td>getLastDiceValue</td><td>int</td><td>None</td><td>public</td></tr>
+<tr><td>setPlayerWhoSaved</td><td>void</td><td>int arg0</td><td>public</td></tr>
+<tr><td>getCurrentPlayer</td><td>int</td><td>None</td><td>public</td></tr>
+<tr><td>setCurrentPlayer</td><td>void</td><td>int arg0</td><td>public</td></tr>
+<tr><td>getPieces</td><td>Map</td><td>None</td><td>public</td></tr>
+<tr><td>getPlayerWhoSaved</td><td>int</td><td>None</td><td>public</td></tr>
+</table>
+<h2>Class: Piece</h2>
+<p class='package'>Package: com.projectkamberinesludogame.ludogame.model</p>
+<h3>Fields</h3>
+<table>
+<tr><th>Field Name</th><th>Type</th><th>Modifiers</th></tr>
+<tr><td>serialVersionUID</td><td>long</td><td>private static final</td></tr>
+<tr><td>id</td><td>int</td><td>public</td></tr>
+<tr><td>color</td><td>int</td><td>public</td></tr>
+<tr><td>position</td><td>int</td><td>public</td></tr>
+</table>
+<h3>Methods</h3>
+<table>
+<tr><th>Method Name</th><th>Return Type</th><th>Parameters</th><th>Modifiers</th></tr>
+<tr><td colspan='4'>No methods</td></tr>
+</table>
+<h2>Class: PlayerType</h2>
+<p class='package'>Package: com.projectkamberinesludogame.ludogame.model</p>
+<h3>Fields</h3>
+<table>
+<tr><th>Field Name</th><th>Type</th><th>Modifiers</th></tr>
+<tr><td>SINGLE_PLAYER</td><td>PlayerType</td><td>public static final</td></tr>
+<tr><td>PLAYER_RED</td><td>PlayerType</td><td>public static final</td></tr>
+<tr><td>PLAYER_BLUE</td><td>PlayerType</td><td>public static final</td></tr>
+<tr><td>$VALUES</td><td>PlayerType[]</td><td>private static final</td></tr>
+</table>
+<h3>Methods</h3>
+<table>
+<tr><th>Method Name</th><th>Return Type</th><th>Parameters</th><th>Modifiers</th></tr>
+<tr><td>values</td><td>PlayerType[]</td><td>None</td><td>public static</td></tr>
+<tr><td>valueOf</td><td>PlayerType</td><td>String arg0</td><td>public static</td></tr>
+<tr><td>$values</td><td>PlayerType[]</td><td>None</td><td>private static</td></tr>
+</table>
+<h2>Class: Position</h2>
+<p class='package'>Package: com.projectkamberinesludogame.ludogame.model</p>
+<h3>Fields</h3>
+<table>
+<tr><th>Field Name</th><th>Type</th><th>Modifiers</th></tr>
+<tr><td>position</td><td>Integer</td><td>private</td></tr>
+</table>
+<h3>Methods</h3>
+<table>
+<tr><th>Method Name</th><th>Return Type</th><th>Parameters</th><th>Modifiers</th></tr>
+<tr><td>toString</td><td>String</td><td>None</td><td>public</td></tr>
+<tr><td>getPosition</td><td>int</td><td>Integer arg0</td><td>public</td></tr>
+<tr><td>setPosition</td><td>void</td><td>int arg0</td><td>public</td></tr>
+</table>
+<h2>Class: Theme</h2>
+<p class='package'>Package: com.projectkamberinesludogame.ludogame.model</p>
+<h3>Fields</h3>
+<table>
+<tr><th>Field Name</th><th>Type</th><th>Modifiers</th></tr>
+<tr><td>DEFAULT</td><td>Theme</td><td>public static final</td></tr>
+<tr><td>DARK</td><td>Theme</td><td>public static final</td></tr>
+<tr><td>NATURE</td><td>Theme</td><td>public static final</td></tr>
+<tr><td>SUNSET</td><td>Theme</td><td>public static final</td></tr>
+<tr><td>OCEAN</td><td>Theme</td><td>public static final</td></tr>
+<tr><td>PURPLE</td><td>Theme</td><td>public static final</td></tr>
+<tr><td>displayName</td><td>String</td><td>private final</td></tr>
+<tr><td>backgroundGradient</td><td>String</td><td>private final</td></tr>
+<tr><td>cellColor</td><td>String</td><td>private final</td></tr>
+<tr><td>cellBorderColor</td><td>String</td><td>private final</td></tr>
+<tr><td>$VALUES</td><td>Theme[]</td><td>private static final</td></tr>
+</table>
+<h3>Methods</h3>
+<table>
+<tr><th>Method Name</th><th>Return Type</th><th>Parameters</th><th>Modifiers</th></tr>
+<tr><td>values</td><td>Theme[]</td><td>None</td><td>public static</td></tr>
+<tr><td>valueOf</td><td>Theme</td><td>String arg0</td><td>public static</td></tr>
+<tr><td>$values</td><td>Theme[]</td><td>None</td><td>private static</td></tr>
+<tr><td>getDisplayName</td><td>String</td><td>None</td><td>public</td></tr>
+<tr><td>getCellColor</td><td>String</td><td>None</td><td>public</td></tr>
+<tr><td>getCellBorderColor</td><td>String</td><td>None</td><td>public</td></tr>
+<tr><td>getBackgroundGradient</td><td>String</td><td>None</td><td>public</td></tr>
+</table>
+<h2>Class: ChatRemoteService</h2>
+<p class='package'>Package: com.projectkamberinesludogame.ludogame.rmi</p>
+<h3>Fields</h3>
+<table>
+<tr><th>Field Name</th><th>Type</th><th>Modifiers</th></tr>
+<tr><td>REMOTE_OBJECT_NAME</td><td>String</td><td>public static final</td></tr>
+</table>
+<h3>Methods</h3>
+<table>
+<tr><th>Method Name</th><th>Return Type</th><th>Parameters</th><th>Modifiers</th></tr>
+<tr><td>getAllMessages</td><td>List</td><td>None</td><td>public abstract</td></tr>
+<tr><td>sendChatMessage</td><td>void</td><td>String arg0</td><td>public abstract</td></tr>
+</table>
+<h2>Class: ChatRemoteServiceImpl</h2>
+<p class='package'>Package: com.projectkamberinesludogame.ludogame.rmi</p>
+<h3>Fields</h3>
+<table>
+<tr><th>Field Name</th><th>Type</th><th>Modifiers</th></tr>
+<tr><td>chatMessages</td><td>List</td><td>private</td></tr>
+</table>
+<h3>Methods</h3>
+<table>
+<tr><th>Method Name</th><th>Return Type</th><th>Parameters</th><th>Modifiers</th></tr>
+<tr><td>getAllMessages</td><td>List</td><td>None</td><td>public</td></tr>
+<tr><td>sendChatMessage</td><td>void</td><td>String arg0</td><td>public</td></tr>
+</table>
+<h2>Class: GameCallback</h2>
+<p class='package'>Package: com.projectkamberinesludogame.ludogame.rmi</p>
+<h3>Fields</h3>
+<table>
+<tr><th>Field Name</th><th>Type</th><th>Modifiers</th></tr>
+<tr><td colspan='3'>No fields</td></tr>
+</table>
+<h3>Methods</h3>
+<table>
+<tr><th>Method Name</th><th>Return Type</th><th>Parameters</th><th>Modifiers</th></tr>
+<tr><td>onGameStart</td><td>void</td><td>None</td><td>public abstract</td></tr>
+<tr><td>onMoveReceived</td><td>void</td><td>String arg0</td><td>public abstract</td></tr>
+</table>
+<h2>Class: GameRemoteService</h2>
+<p class='package'>Package: com.projectkamberinesludogame.ludogame.rmi</p>
+<h3>Fields</h3>
+<table>
+<tr><th>Field Name</th><th>Type</th><th>Modifiers</th></tr>
+<tr><td>REMOTE_OBJECT_NAME</td><td>String</td><td>public static final</td></tr>
+</table>
+<h3>Methods</h3>
+<table>
+<tr><th>Method Name</th><th>Return Type</th><th>Parameters</th><th>Modifiers</th></tr>
+<tr><td>registerPlayer</td><td>void</td><td>int arg0, GameCallback arg1</td><td>public abstract</td></tr>
+<tr><td>sendMove</td><td>void</td><td>int arg0, String arg1</td><td>public abstract</td></tr>
+</table>
+<h2>Class: GameRemoteServiceImpl</h2>
+<p class='package'>Package: com.projectkamberinesludogame.ludogame.rmi</p>
+<h3>Fields</h3>
+<table>
+<tr><th>Field Name</th><th>Type</th><th>Modifiers</th></tr>
+<tr><td>players</td><td>Map</td><td>private</td></tr>
+</table>
+<h3>Methods</h3>
+<table>
+<tr><th>Method Name</th><th>Return Type</th><th>Parameters</th><th>Modifiers</th></tr>
+<tr><td>registerPlayer</td><td>void</td><td>int arg0, GameCallback arg1</td><td>public synchronized</td></tr>
+<tr><td>sendMove</td><td>void</td><td>int arg0, String arg1</td><td>public synchronized</td></tr>
+</table>
+<h2>Class: RmiServer</h2>
+<p class='package'>Package: com.projectkamberinesludogame.ludogame.rmi</p>
+<h3>Fields</h3>
+<table>
+<tr><th>Field Name</th><th>Type</th><th>Modifiers</th></tr>
+<tr><td>RANDOM_PORT_HINT</td><td>int</td><td>private static final</td></tr>
+<tr><td>RMI_PORT</td><td>int</td><td>public static final</td></tr>
+<tr><td>HOSTNAME</td><td>String</td><td>public static final</td></tr>
+</table>
+<h3>Methods</h3>
+<table>
+<tr><th>Method Name</th><th>Return Type</th><th>Parameters</th><th>Modifiers</th></tr>
+<tr><td>main</td><td>void</td><td>String[] arg0</td><td>public static</td></tr>
+</table>
+<h2>Class: AbstractTheLastGameMoveThread</h2>
+<p class='package'>Package: com.projectkamberinesludogame.ludogame.thread</p>
+<h3>Fields</h3>
+<table>
+<tr><th>Field Name</th><th>Type</th><th>Modifiers</th></tr>
+<tr><td colspan='3'>No fields</td></tr>
+</table>
+<h3>Methods</h3>
+<table>
+<tr><th>Method Name</th><th>Return Type</th><th>Parameters</th><th>Modifiers</th></tr>
+<tr><td>saveLastGameMove</td><td>void</td><td>GameMove arg0</td><td>public synchronized</td></tr>
+<tr><td>loadLastGameMoves</td><td>List</td><td>None</td><td>public synchronized</td></tr>
+</table>
+<h2>Class: ReadTheLastGameMoveThread</h2>
+<p class='package'>Package: com.projectkamberinesludogame.ludogame.thread</p>
+<h3>Fields</h3>
+<table>
+<tr><th>Field Name</th><th>Type</th><th>Modifiers</th></tr>
+<tr><td>label</td><td>Label</td><td>private</td></tr>
+</table>
+<h3>Methods</h3>
+<table>
+<tr><th>Method Name</th><th>Return Type</th><th>Parameters</th><th>Modifiers</th></tr>
+<tr><td>run</td><td>void</td><td>None</td><td>public</td></tr>
+<tr><td>getLabel</td><td>Label</td><td>None</td><td>public</td></tr>
+<tr><td>lambda$run$0</td><td>void</td><td>GameMove arg0</td><td>private</td></tr>
+<tr><td>setLabel</td><td>void</td><td>Label arg0</td><td>public</td></tr>
+</table>
+<h2>Class: SaveTheLastGameMoveThread</h2>
+<p class='package'>Package: com.projectkamberinesludogame.ludogame.thread</p>
+<h3>Fields</h3>
+<table>
+<tr><th>Field Name</th><th>Type</th><th>Modifiers</th></tr>
+<tr><td>gameMove</td><td>GameMove</td><td>private</td></tr>
+</table>
+<h3>Methods</h3>
+<table>
+<tr><th>Method Name</th><th>Return Type</th><th>Parameters</th><th>Modifiers</th></tr>
+<tr><td>run</td><td>void</td><td>None</td><td>public</td></tr>
+<tr><td>setGameMove</td><td>void</td><td>GameMove arg0</td><td>public</td></tr>
+<tr><td>getGameMove</td><td>GameMove</td><td>None</td><td>public</td></tr>
+</table>
+<h2>Class: DialogUtils</h2>
+<p class='package'>Package: com.projectkamberinesludogame.ludogame.utils</p>
+<h3>Fields</h3>
+<table>
+<tr><th>Field Name</th><th>Type</th><th>Modifiers</th></tr>
+<tr><td colspan='3'>No fields</td></tr>
+</table>
+<h3>Methods</h3>
+<table>
+<tr><th>Method Name</th><th>Return Type</th><th>Parameters</th><th>Modifiers</th></tr>
+<tr><td>showDialog</td><td>void</td><td>String arg0, String arg1, AlertType arg2</td><td>public static</td></tr>
+</table>
+<h2>Class: DocumentationUtils</h2>
+<p class='package'>Package: com.projectkamberinesludogame.ludogame.utils</p>
+<h3>Fields</h3>
+<table>
+<tr><th>Field Name</th><th>Type</th><th>Modifiers</th></tr>
+<tr><td>PATH_WITH_CLASSES</td><td>String</td><td>private static final</td></tr>
+<tr><td>HTML_DOCUMENTATION_FILE_NAME</td><td>String</td><td>private static final</td></tr>
+<tr><td>CLASS_FILE_NAME_EXTENSION</td><td>String</td><td>private static final</td></tr>
+</table>
+<h3>Methods</h3>
+<table>
+<tr><th>Method Name</th><th>Return Type</th><th>Parameters</th><th>Modifiers</th></tr>
+<tr><td>generateHtmlDocumentationFile</td><td>void</td><td>None</td><td>public static</td></tr>
+<tr><td>lambda$generateHtmlDocumentationFile$0</td><td>boolean</td><td>Path arg0</td><td>private static</td></tr>
+<tr><td>generateHtmlDocumentationCode</td><td>String</td><td>List arg0</td><td>private static</td></tr>
+</table>
+<h2>Class: FileUtils</h2>
+<p class='package'>Package: com.projectkamberinesludogame.ludogame.utils</p>
+<h3>Fields</h3>
+<table>
+<tr><th>Field Name</th><th>Type</th><th>Modifiers</th></tr>
+<tr><td>FILE_ACCESS_IN_PROGRESS</td><td>Boolean</td><td>public static</td></tr>
+<tr><td>GAME_MOVE_HISTORY_FILE_NAME</td><td>String</td><td>public static final</td></tr>
+</table>
+<h3>Methods</h3>
+<table>
+<tr><th>Method Name</th><th>Return Type</th><th>Parameters</th><th>Modifiers</th></tr>
+<tr><td>piecesPosition</td><td>Optional</td><td>int arg0</td><td>public static</td></tr>
+<tr><td>getLastGameMove</td><td>Timeline</td><td>Label arg0</td><td>public static</td></tr>
+<tr><td>lambda$getLastGameMove$0</td><td>void</td><td>Label arg0, ActionEvent arg1</td><td>private static</td></tr>
+</table>
+<h2>Class: GameUtils</h2>
+<p class='package'>Package: com.projectkamberinesludogame.ludogame.utils</p>
+<h3>Fields</h3>
+<table>
+<tr><th>Field Name</th><th>Type</th><th>Modifiers</th></tr>
+<tr><td>SAVE_FILE_PATH</td><td>String</td><td>private static final</td></tr>
+</table>
+<h3>Methods</h3>
+<table>
+<tr><th>Method Name</th><th>Return Type</th><th>Parameters</th><th>Modifiers</th></tr>
+<tr><td>loadGame</td><td>GameState</td><td>None</td><td>public static</td></tr>
+<tr><td>saveGame</td><td>boolean</td><td>GameState arg0</td><td>public static</td></tr>
+</table>
+<h2>Class: </h2>
+<p class='package'>Package: com.projectkamberinesludogame.ludogame.utils</p>
+<h3>Fields</h3>
+<table>
+<tr><th>Field Name</th><th>Type</th><th>Modifiers</th></tr>
+<tr><td colspan='3'>No fields</td></tr>
+</table>
+<h3>Methods</h3>
+<table>
+<tr><th>Method Name</th><th>Return Type</th><th>Parameters</th><th>Modifiers</th></tr>
+<tr><td>error</td><td>void</td><td>SAXParseException arg0</td><td>public</td></tr>
+</table>
+<h2>Class: </h2>
+<p class='package'>Package: com.projectkamberinesludogame.ludogame.utils</p>
+<h3>Fields</h3>
+<table>
+<tr><th>Field Name</th><th>Type</th><th>Modifiers</th></tr>
+<tr><td>$SwitchMap$com$projectkamberinesludogame$ludogame$model$PlayerType</td><td>int[]</td><td>static final</td></tr>
+</table>
+<h3>Methods</h3>
+<table>
+<tr><th>Method Name</th><th>Return Type</th><th>Parameters</th><th>Modifiers</th></tr>
+<tr><td colspan='4'>No methods</td></tr>
+</table>
+<h2>Class: ThemeUtils</h2>
+<p class='package'>Package: com.projectkamberinesludogame.ludogame.utils</p>
+<h3>Fields</h3>
+<table>
+<tr><th>Field Name</th><th>Type</th><th>Modifiers</th></tr>
+<tr><td>THEME_CONFIG_FILE</td><td>String</td><td>private static final</td></tr>
+<tr><td>DTD_FILE</td><td>String</td><td>private static final</td></tr>
+</table>
+<h3>Methods</h3>
+<table>
+<tr><th>Method Name</th><th>Return Type</th><th>Parameters</th><th>Modifiers</th></tr>
+<tr><td>saveTheme</td><td>boolean</td><td>PlayerType arg0, Theme arg1</td><td>public static</td></tr>
+<tr><td>loadTheme</td><td>Theme</td><td>PlayerType arg0</td><td>public static</td></tr>
+<tr><td>createNewDocument</td><td>Document</td><td>None</td><td>private static</td></tr>
+<tr><td>getPlayerId</td><td>String</td><td>PlayerType arg0</td><td>private static</td></tr>
+<tr><td>getPlayerName</td><td>String</td><td>PlayerType arg0</td><td>private static</td></tr>
+<tr><td>saveDocument</td><td>void</td><td>Document arg0, File arg1</td><td>private static</td></tr>
+<tr><td>updatePlayerTheme</td><td>void</td><td>Document arg0, PlayerType arg1, Theme arg2</td><td>private static</td></tr>
+<tr><td>loadDocument</td><td>Document</td><td>File arg0</td><td>private static</td></tr>
+<tr><td>deleteThemeConfig</td><td>boolean</td><td>None</td><td>public static</td></tr>
+</table>
+</body>
+</html>

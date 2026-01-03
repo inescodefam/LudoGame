@@ -1,0 +1,5 @@
+<!ELEMENT theme-config (player-theme+)>
+<!ELEMENT player-theme (player-name, selected-theme)>
+<!ELEMENT player-name (#PCDATA)>
+<!ELEMENT selected-theme (#PCDATA)>
+<!ATTLIST player-theme player-id CDATA #REQUIRED>

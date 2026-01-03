@@ -1,61 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.projectkamberinesludogame.ludogame.GameController">
+<BorderPane fx:id="pane" style="-fx-background-color: linear-gradient(to bottom, #94BCEB,  #EBA996);" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.projectkamberinesludogame.ludogame.controller.GameController">
     <top>
-        <VBox alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
+        <VBox alignment="CENTER" prefHeight="27.0" prefWidth="709.0" spacing="10.0" style="-fx-background-color: #ffffff11;" BorderPane.alignment="CENTER">
             <padding>
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </padding>
          <HBox alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="100.0" spacing="15.0">
             <children>
+                <MenuButton fx:id="themeMenuButton" mnemonicParsing="false" style="-fx-background-color: #d1bcf5; -fx-text-fill: white; -fx-font-weight: bold;" text="Theme" textFill="WHITE">
+                    <items>
+                        <MenuItem fx:id="themeDefault" onAction="#onThemeChange" text="Default" />
+                        <MenuItem fx:id="themeDark" onAction="#onThemeChange" text="Dark Mode" />
+                        <MenuItem fx:id="themeNature" onAction="#onThemeChange" text="Nature" />
+                        <MenuItem fx:id="themeSunset" onAction="#onThemeChange" text="Sunset" />
+                        <MenuItem fx:id="themeOcean" onAction="#onThemeChange" text="Ocean" />
+                        <MenuItem fx:id="themePurple" onAction="#onThemeChange" text="Purple Dream" />
+                    </items>
+                </MenuButton>
+               <Button fx:id="docuBtn" mnemonicParsing="false" onAction="#generateDocumentation" style="-fx-background-color: #753550; -fx-text-fill: white; -fx-font-weight: bold;" text="Documentation" />
              <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#onSaveClick" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold;" text="Save" />
                <Button fx:id="loadBtn" mnemonicParsing="false" onAction="#onLoadClick" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-weight: bold;" text="Load" />
             </children>
          </HBox>
+         <Label fx:id="theLastGameMoveLabelID" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="621.0" />
 
-            <Label fx:id="statusLabel" text="Waiting for connection...">
+            <Label fx:id="statusLabel" style="-fx-color: #735250;" text="Waiting for connection..." textAlignment="CENTER" textFill="#123b61">
                 <font>
-                    <Font size="16.0" />
+                    <Font name="Corbel" size="16.0" />
                 </font>
             </Label>
 
             <HBox alignment="CENTER" spacing="20.0">
-                <Label fx:id="diceLabel" text="Dice: -">
+                <Label fx:id="diceLabel" style="-fx-font-weight: bold;" text="Dice: -">
                     <font>
                         <Font size="18.0" />
                     </font>
                 </Label>
-
-                <Button fx:id="rollButton" disable="true" mnemonicParsing="false" onAction="#onRollDice" style="-fx-background-color: purple; -fx-text-fill: white; -fx-font-weight: bold;" text="ROLL DICE" textAlignment="CENTER">
+   
+                      <Button fx:id="rollButton" disable="true" mnemonicParsing="false" onAction="#onRollDice" style="-fx-background-color: purple; -fx-text-fill: white; -fx-font-weight: bold;" text="ROLL DICE" textAlignment="CENTER">
                     <font>
                         <Font size="14.0" />
                     </font>
                 </Button>
             </HBox>
+         <VBox prefHeight="200.0" prefWidth="100.0" />
         </VBox>
     </top>
    <center>
-        <GridPane fx:id="boardGrid" alignment="CENTER" gridLinesVisible="false" style="-fx-background-color: linear-gradient(to bottom, #94BCEB,  #EBA996);" BorderPane.alignment="CENTER">
+        <GridPane fx:id="boardGrid" alignment="CENTER" gridLinesVisible="false" style="-fx-background-color: transparent;" BorderPane.alignment="CENTER">
             <padding>
                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
             </padding>
 
             <!-- RED HOME AREA (Top-Left) -->
             <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #EBA996; -fx-border-color: #C48D80; -fx-border-width: 1;" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="1" GridPane.rowSpan="4">
-                <Label layoutX="58.0" layoutY="88.0" text="RED HOME">
+                <Label layoutX="58.0" layoutY="88.0" text="RED HOME" textFill="WHITE">
                     <font><Font name="System Bold" size="16.0" /></font>
                 </Label>
                 <!-- RED Home positions for pieces -->
@@ -67,7 +73,7 @@
 
             <!-- BLUE HOME AREA (Bottom-Right) -->
             <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #94BCEB; -fx-border-color: #80A0C4; -fx-border-width: 2;" GridPane.columnIndex="10" GridPane.columnSpan="4" GridPane.rowIndex="10" GridPane.rowSpan="4">
-                <Label layoutX="54.0" layoutY="88.0" text="BLUE HOME">
+                <Label layoutX="54.0" layoutY="88.0" text="BLUE HOME" textFill="WHITE">
                     <font><Font name="System Bold" size="16.0" /></font>
                 </Label>
                 <!-- BLUE Home positions for pieces -->
@@ -116,7 +122,7 @@
             <Pane fx:id="cell28" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="8" GridPane.rowIndex="13" />
 
             <!-- Right side down -->
-            <Pane fx:id="cell18" prefHeight="50.0" prefWidth="50.0" GridPane.columnIndex="5" GridPane.rowIndex="8" />
+<!--            <Pane fx:id="cell18" prefHeight="50.0" prefWidth="50.0" GridPane.columnIndex="5" GridPane.rowIndex="8" />-->
             <Pane fx:id="cell29" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="8" GridPane.rowIndex="12" />
             <Pane fx:id="cell30" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="8" GridPane.rowIndex="11" />
             <Pane fx:id="cell31" onMouseClicked="#onCellClick" prefHeight="50" prefWidth="50" style="-fx-background-color: #FFFCD6; -fx-border-color: #D9D5AB;" GridPane.columnIndex="8" GridPane.rowIndex="10" />
@@ -193,4 +199,43 @@
     <bottom>
 
     </bottom>
+   <left>
+      <VBox fx:id="chatBox" prefHeight="200.0" prefWidth="300.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox>
+               <children>
+                  <TextField fx:id="chatMessageTextField" prefHeight="25.0" prefWidth="402.0" style="-fx-border-color: #845689; -fx-border-radius: 8px; -fx-border-width: 2px; -fx-background-color: transparent;">
+                     <padding>
+                        <Insets left="25.0" right="25.0" />
+                     </padding>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets left="25.0" right="25.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <HBox prefHeight="10.0" prefWidth="400.0" />
+                  <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#sendMessageButtonClick" style="-fx-background-color: green; -fx-text-fill: white; -fx-font-weight: bold;" text="Send message">
+                     <VBox.margin>
+                        <Insets left="25.0" right="50.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </VBox>
+            <HBox layoutX="10.0" layoutY="10.0" prefHeight="700.0" prefWidth="200.0">
+               <children>
+                  <TextArea fx:id="chatMessageTextArea" prefHeight="750.0" prefWidth="401.0">
+                     <padding>
+                        <Insets left="15.0" right="15.0" />
+                     </padding>
+                  </TextArea>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </left>
 </BorderPane>

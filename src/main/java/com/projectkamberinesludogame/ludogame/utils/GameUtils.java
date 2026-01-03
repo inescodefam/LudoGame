@@ -24,14 +24,11 @@ public class GameUtils {
         } catch (FileNotFoundException e) {
             System.err.println("Error: Could not create save file - " + e.getMessage());
             return false;
-
         } catch (IOException e) {
             System.err.println("Error: Failed to save game - " + e.getMessage());
             e.printStackTrace();
             return false;
-
         } finally {
-            // Close streams in reverse order
             try {
                 if (objectOut != null) objectOut.close();
                 if (fileOut != null) fileOut.close();
@@ -48,7 +45,6 @@ public class GameUtils {
         try {
             File saveFile = new File(SAVE_FILE_PATH);
 
-            // Check if save file exists
             if (!saveFile.exists()) {
                 System.out.println("No save file found at " + SAVE_FILE_PATH);
                 return null;
@@ -57,7 +53,6 @@ public class GameUtils {
             fileIn = new FileInputStream(SAVE_FILE_PATH);
             objectIn = new ObjectInputStream(fileIn);
 
-            // Read the game state object
             GameState gameState = (GameState) objectIn.readObject();
 
             System.out.println("Game loaded successfully from " + SAVE_FILE_PATH);
@@ -78,7 +73,6 @@ public class GameUtils {
             return null;
 
         } finally {
-            // Close streams in reverse order
             try {
                 if (objectIn != null) objectIn.close();
                 if (fileIn != null) fileIn.close();
@@ -88,20 +82,20 @@ public class GameUtils {
         }
     }
 
-    public static boolean saveFileExists() {
-        File saveFile = new File(SAVE_FILE_PATH);
-        return saveFile.exists();
-    }
-
-    public static boolean deleteSaveFile() {
-        File saveFile = new File(SAVE_FILE_PATH);
-        if (saveFile.exists()) {
-            boolean deleted = saveFile.delete();
-            if (deleted) {
-                System.out.println("Save file deleted successfully");
-            }
-            return deleted;
-        }
-        return false;
-    }
+//    public static boolean saveFileExists() {
+//        File saveFile = new File(SAVE_FILE_PATH);
+//        return saveFile.exists();
+//    }
+//
+//    public static boolean deleteSaveFile() {
+//        File saveFile = new File(SAVE_FILE_PATH);
+//        if (saveFile.exists()) {
+//            boolean deleted = saveFile.delete();
+//            if (deleted) {
+//                System.out.println("Save file deleted successfully");
+//            }
+//            return deleted;
+//        }
+//        return false;
+//    }
 }
