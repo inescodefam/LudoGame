@@ -4,6 +4,7 @@ import com.projectkamberinesludogame.ludogame.jndi.ConfigurationKey;
 import com.projectkamberinesludogame.ludogame.jndi.ConfigurationReader;
 import com.projectkamberinesludogame.ludogame.model.PlayerType;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -22,6 +23,11 @@ public class LudoGame extends Application {
         stage.setTitle("Ludo Game - " + playerType.toString());
         stage.setScene(scene);
         stage.show();
+
+        stage.setOnCloseRequest(event -> {
+            Platform.exit();
+            System.exit(0);
+        });
     }
 
     public static void main(String[] args) {
@@ -30,7 +36,7 @@ public class LudoGame extends Application {
             HOSTNAME = ConfigurationReader.getStringForKey(ConfigurationKey.HOSTNAME);
         } catch (Exception e) {
             System.out.println("Could not read hostname from config, using localhost");
-            HOSTNAME = "localhost";
+
         }
 
         if (args.length == 0) {

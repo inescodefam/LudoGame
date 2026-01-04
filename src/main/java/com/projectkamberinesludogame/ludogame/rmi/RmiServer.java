@@ -59,27 +59,24 @@ public class RmiServer {
 
 
             System.setProperty("java.rmi.server.hostname", hostname);
-
             System.out.println("Starting RMI Server on " + hostname + ":" + RMI_PORT);
-
-
             Registry registry = LocateRegistry.createRegistry(RMI_PORT);
 
             ChatRemoteService chatRemoteService = new ChatRemoteServiceImpl();
             ChatRemoteService chatSkeleton = (ChatRemoteService) UnicastRemoteObject.exportObject(
                     chatRemoteService, RANDOM_PORT_HINT);
             registry.rebind(ChatRemoteService.REMOTE_OBJECT_NAME, chatSkeleton);
-            System.out.println("✓ Chat service registered");
+            System.out.println("Chat service registered");
 
-            GameRemoteService gameRemoteService = new GameRemoteServiceImpl();
-            GameRemoteService gameSkeleton = (GameRemoteService) UnicastRemoteObject.exportObject(
-                    gameRemoteService, RANDOM_PORT_HINT);
-            registry.rebind(GameRemoteService.REMOTE_OBJECT_NAME, gameSkeleton);
-            System.out.println("✓ Game service registered");
+            // game between players via RMI server
+//            GameRemoteService gameRemoteService = new GameRemoteServiceImpl();
+//            GameRemoteService gameSkeleton = (GameRemoteService) UnicastRemoteObject.exportObject(
+//                    gameRemoteService, RANDOM_PORT_HINT);
+//            registry.rebind(GameRemoteService.REMOTE_OBJECT_NAME, gameSkeleton);
+//            System.out.println("Game service registered");
 
             System.out.println("\n========================================");
             System.out.println("RMI Server is running!");
-            System.out.println("Waiting for players to connect...");
             System.out.println("========================================\n");
 
         } catch (RemoteException e) {

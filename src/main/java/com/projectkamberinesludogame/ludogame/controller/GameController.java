@@ -1,9 +1,11 @@
 package com.projectkamberinesludogame.ludogame.controller;
 
 import com.projectkamberinesludogame.ludogame.LudoGame;
+import com.projectkamberinesludogame.ludogame.NetworkManager;
+import com.projectkamberinesludogame.ludogame.jndi.ConfigurationKey;
+import com.projectkamberinesludogame.ludogame.jndi.ConfigurationReader;
 import com.projectkamberinesludogame.ludogame.model.*;
 import com.projectkamberinesludogame.ludogame.rmi.ChatRemoteService;
-import com.projectkamberinesludogame.ludogame.rmi.GameRemoteService;
 import com.projectkamberinesludogame.ludogame.rmi.RmiServer;
 import com.projectkamberinesludogame.ludogame.thread.SaveTheLastGameMoveThread;
 import com.projectkamberinesludogame.ludogame.utils.*;
@@ -92,8 +94,12 @@ public class GameController {
     private static final int BLUE_ENTRY_CELL = 26;  // BLUE ulazi u finish  nakon cell26
 
     // RMI
-    private GameRemoteService gameService;
-    private GameCallbackImpl callbackImpl;
+   // private GameRemoteService gameService;
+    //private GameCallbackImpl callbackImpl;
+
+    // Networking manager back again
+    private NetworkManager networkManager;
+
     private boolean isSinglePlayer;
 
     // chat messages
@@ -166,7 +172,9 @@ public class GameController {
         } else {
             playerColor = LudoGame.playerType == PlayerType.PLAYER_RED ? 0 : 1;
             System.out.println("=== MULTIPLAYER MODE: " + (playerColor == 0 ? "RED" : "BLUE") + " ===");
-            connectToRMIServer();
+            //connectToRMIServer();
+            initializeSocketConnection();
+            connectToRMIChatServer();
         }
 
         if(!isSinglePlayer) {
@@ -194,7 +202,6 @@ public class GameController {
                 for(String message : chatMessages) {
                     textMessagesBuilder.append(message).append("\n");
                 }
-
                 chatMessageTextArea.setText(textMessagesBuilder.toString());
 
             } catch (RemoteException ex) {
@@ -209,33 +216,162 @@ public class GameController {
         return chatMessagesRefreshTimeLine;
     }
 
-    private void connectToRMIServer() {
+    private void connectToRMIChatServer() {
         try {
-            Registry registry = LocateRegistry.getRegistry(LudoGame.HOSTNAME, 1099);
-            gameService = (GameRemoteService) registry.lookup(GameRemoteService.REMOTE_OBJECT_NAME);
+            Registry registry = LocateRegistry.getRegistry(LudoGame.HOSTNAME, RmiServer.RMI_PORT);
+            chatRemoteService = (ChatRemoteService) registry.lookup(ChatRemoteService.REMOTE_OBJECT_NAME);
+            System.out.println("[CHAT] Connected to RMI chat service");
+        } catch (Exception e) {
+            System.err.println("[CHAT] Failed to connect to chat service: " + e.getMessage());
+        }
+    }
 
-            System.out.println("Connected to RMI server");
+//    private void connectToRMIServer() {  // if we want to have game communication between two players via RMI server
+//        try {
+//            Registry registry = LocateRegistry.getRegistry(LudoGame.HOSTNAME, 1099);
+//            gameService = (GameRemoteService) registry.lookup(GameRemoteService.REMOTE_OBJECT_NAME);
+//
+//            System.out.println("Connected to RMI server");
+//
+//            callbackImpl = new GameCallbackImpl();
+//            GameRemoteService.GameCallback callbackStub =
+//                    (GameRemoteService.GameCallback) UnicastRemoteObject.exportObject(callbackImpl, 0);
+//
+//            gameService.registerPlayer(playerColor, callbackStub);
+//            System.out.println(">>> Registered as " + (playerColor == 0 ? "RED" : "BLUE"));
+//
+//            updateStatus("Waiting for opponent to connect...");
+//            rollButton.setDisable(true);
+//
+//        } catch (Exception e) {
+//            System.err.println("✗ Failed to connect to RMI server!");
+//            e.printStackTrace();
+//            updateStatus("ERROR: Cannot connect to server! Make sure RmiServer is running.");
+//            DialogUtils.showDialog("Connection Error",
+//                    "Cannot connect to RMI server!\n\nMake sure RmiServer is running:\n" +
+//                            "java com.projectkamberinesludogame.ludogame.rmi.RmiServer",
+//                    Alert.AlertType.ERROR);
+//        }
+//    }
 
-            callbackImpl = new GameCallbackImpl();
-            GameRemoteService.GameCallback callbackStub =
-                    (GameRemoteService.GameCallback) UnicastRemoteObject.exportObject(callbackImpl, 0);
+    private void initializeSocketConnection() {
+        boolean isHost = (LudoGame.playerType == PlayerType.PLAYER_RED);
 
-            gameService.registerPlayer(playerColor, callbackStub);
-            System.out.println(">>> Registered as " + (playerColor == 0 ? "RED" : "BLUE"));
+        int port;
+        String hostname = LudoGame.HOSTNAME != null ? LudoGame.HOSTNAME : "localhost";
+        try {
+            if (isHost) {
+                // RED is  host == server
+                port = ConfigurationReader.getIntegerForKey(ConfigurationKey.PLAYER_RED_SERVER_PORT);
+                updateStatus("Starting server on port " + port + "...");
+            } else {
+                // BLUE is client
+                port = ConfigurationReader.getIntegerForKey(ConfigurationKey.PLAYER_RED_SERVER_PORT); // Connect to RED's port
+                updateStatus("Connecting to host on port " + port + "...");
+            }
 
-            updateStatus("Waiting for opponent to connect...");
+            networkManager = new NetworkManager(isHost, port, this::handleNetworkMessage);
+            networkManager.start();
+
             rollButton.setDisable(true);
 
         } catch (Exception e) {
-            System.err.println("✗ Failed to connect to RMI server!");
+            System.err.println("[GAME] Failed to initialize network: " + e.getMessage());
             e.printStackTrace();
-            updateStatus("ERROR: Cannot connect to server! Make sure RmiServer is running.");
-            DialogUtils.showDialog("Connection Error",
-                    "Cannot connect to RMI server!\n\nMake sure RmiServer is running:\n" +
-                            "java com.projectkamberinesludogame.ludogame.rmi.RmiServer",
-                    Alert.AlertType.ERROR);
+
+            Platform.runLater(() -> {
+                DialogUtils.showDialog("Connection Error",
+                        "Failed to " + (isHost ? "start server" : "connect to host") + ":\n" +
+                                e.getMessage(),
+                        Alert.AlertType.ERROR);
+            });
         }
     }
+
+    private void handleNetworkMessage(String message) {
+        Platform.runLater(() -> {
+            String[] parts = message.split(":");
+            System.out.println("Received parts: " + Arrays.toString(parts));
+            switch (parts[0]) {
+                case "CONNECTED":
+                   onConnectedHandleNetorkMessage();
+                    break;
+                case "ROLL":
+                   onRollHanleNetworkMessage(parts);
+                    break;
+                case "MOVE":
+                    onMoveHanleNetworkMessage(parts);
+                    break;
+                case "YOUR_TURN":
+                  onYourTurnHanleMessage(parts);
+                    break;
+                default:
+                    System.err.println("Unknown message: " + message);
+                    break;
+            }
+        });
+    }
+
+    private void onYourTurnHanleMessage(String[] parts) {
+        int turnColor = Integer.parseInt(parts[1]);
+        if (playerColor == turnColor) {
+            state.setCurrentPlayer(playerColor);
+            rollButton.setDisable(false);
+            updateStatus("Your turn! Roll the dice.");
+        } else {
+            state.setCurrentPlayer(1 - playerColor);
+            rollButton.setDisable(true);
+            updateStatus("Opponent's turn. Waiting...");
+
+        }
+    }
+
+    private void onMoveHanleNetworkMessage(String[] parts) {
+        int pieceId = Integer.parseInt(parts[1]);
+        int steps = Integer.parseInt(parts[2]);
+
+        if (pieceId == -1) {
+            state.setCurrentPlayer(playerColor);
+            diceValue = 0;
+            rollButton.setDisable(false);
+            updateStatus("Opponent had no valid moves. Your turn!");
+            diceLabel.setText("Dice: -");
+        } else {
+            performMove(pieceId, steps);
+            updateBoard();
+
+            if (steps == 6) {
+                updateStatus("Opponent got 6 and rolls again. Waiting...");
+                rollButton.setDisable(true);
+            } else {
+                state.setCurrentPlayer(playerColor);
+                diceValue = 0;
+                rollButton.setDisable(false);
+                updateStatus("Your turn! Roll the dice.");
+                diceLabel.setText("Dice: -");
+            }
+        }
+    }
+
+    private void onConnectedHandleNetorkMessage() {
+        updateStatus("Game started! RED's turn");
+        if (playerColor == 0) {
+            rollButton.setDisable(false);
+        }
+    }
+
+    private void onRollHanleNetworkMessage(String[] parts) {
+        int rollColor = Integer.parseInt(parts[1]);
+        int dice = Integer.parseInt(parts[2]);
+        diceValue = dice;
+        diceLabel.setText("Dice: " + dice);
+        if(rollColor == playerColor) {
+            updateStatus("You rolled " + dice + ". Click a highlighted piece to move.");
+            highlightMovablePieces();
+            state.setCurrentPlayer(playerColor);
+        }
+    }
+
 
     public void sendMessageButtonClick() {
         String chatMessage = chatMessageTextField.getText();
@@ -278,6 +414,7 @@ public class GameController {
         if (selectedTheme != null) {
             applyTheme(selectedTheme);
 
+            // all players same theme
 //            if (!isSinglePlayer && gameService != null) {
 //                try {
 //                    gameService.sendMove(playerColor, "THEME:" + selectedTheme.name());
@@ -312,79 +449,79 @@ public class GameController {
         System.out.println("Applied theme: " + theme.getDisplayName());
     }
 
-    private class GameCallbackImpl implements GameRemoteService.GameCallback {
+//    private class GameCallbackImpl implements GameRemoteService.GameCallback {
+//
+//        @Override
+//        public void onGameStart() throws RemoteException {
+//            System.out.println(">>> Game starting! Both players connected.");
+//            Platform.runLater(() -> {
+//                if (playerColor == 0) {
+//
+//                    state.setCurrentPlayer(0);
+//                    rollButton.setDisable(false);
+//                    updateStatus("Game started! Your turn (RED). Roll the dice!");
+//
+//                } else {
+//
+//                    state.setCurrentPlayer(0);
+//                    rollButton.setDisable(true);
+//                    updateStatus("Game started! Waiting for RED to play...");
+//
+//                }
+//            });
+//        }
+//
+//        @Override
+//        public void onMoveReceived(String moveData) throws RemoteException {
+//            System.out.println(">>> Received move: " + moveData);
+//            Platform.runLater(() -> handleOpponentMove(moveData));
+//        }
+//    }
 
-        @Override
-        public void onGameStart() throws RemoteException {
-            System.out.println(">>> Game starting! Both players connected.");
-            Platform.runLater(() -> {
-                if (playerColor == 0) {
-
-                    state.setCurrentPlayer(0);
-                    rollButton.setDisable(false);
-                    updateStatus("Game started! Your turn (RED). Roll the dice!");
-
-                } else {
-
-                    state.setCurrentPlayer(0);
-                    rollButton.setDisable(true);
-                    updateStatus("Game started! Waiting for RED to play...");
-
-                }
-            });
-        }
-
-        @Override
-        public void onMoveReceived(String moveData) throws RemoteException {
-            System.out.println(">>> Received move: " + moveData);
-            Platform.runLater(() -> handleOpponentMove(moveData));
-        }
-    }
-
-    private void handleOpponentMove(String moveData) {
-        String[] parts = moveData.split(":");
-        String action = parts[0];
-
-        if ("ROLL".equals(action)) {
-
-            int dice = Integer.parseInt(parts[1]);
-            diceValue = dice;
-            diceLabel.setText("Opponent rolled: " + dice);
-            updateStatus("Opponent rolled " + dice + "...");
-
-        } else if ("MOVE".equals(action)) {
-            int pieceId = Integer.parseInt(parts[1]);
-            int steps = Integer.parseInt(parts[2]);
-
-            if (pieceId == -1) {
-                updateStatus("Opponent had no valid moves. Your turn!");
-                state.setCurrentPlayer(playerColor);
-                rollButton.setDisable(false);
-                diceValue = 0;
-                diceLabel.setText("Dice: -");
-            } else {
-                performMove(pieceId, steps);
-                updateBoard();
-
-                if (checkWin(1 - playerColor)) {
-                    String winner = playerColor == 0 ? "BLUE" : "RED";
-                    showWinner(winner);
-                    return;
-                }
-
-                if (steps == 6) {
-                    updateStatus("Opponent got 6 and rolls again...");
-                    rollButton.setDisable(true);
-                } else {
-                    state.setCurrentPlayer(playerColor);
-                    rollButton.setDisable(false);
-                    updateStatus("Your turn! Roll the dice.");
-                    diceValue = 0;
-                    diceLabel.setText("Dice: -");
-                }
-            }
-        }
-    }
+//    private void handleOpponentMove(String moveData) {
+//        String[] parts = moveData.split(":");
+//        String action = parts[0];
+//
+//        if ("ROLL".equals(action)) {
+//
+//            int dice = Integer.parseInt(parts[1]);
+//            diceValue = dice;
+//            diceLabel.setText("Opponent rolled: " + dice);
+//            updateStatus("Opponent rolled " + dice + "...");
+//
+//        } else if ("MOVE".equals(action)) {
+//            int pieceId = Integer.parseInt(parts[1]);
+//            int steps = Integer.parseInt(parts[2]);
+//
+//            if (pieceId == -1) {
+//                updateStatus("Opponent had no valid moves. Your turn!");
+//                state.setCurrentPlayer(playerColor);
+//                rollButton.setDisable(false);
+//                diceValue = 0;
+//                diceLabel.setText("Dice: -");
+//            } else {
+//                performMove(pieceId, steps);
+//                updateBoard();
+//
+//                if (checkWin(1 - playerColor)) {
+//                    String winner = playerColor == 0 ? "BLUE" : "RED";
+//                    showWinner(winner);
+//                    return;
+//                }
+//
+//                if (steps == 6) {
+//                    updateStatus("Opponent got 6 and rolls again...");
+//                    rollButton.setDisable(true);
+//                } else {
+//                    state.setCurrentPlayer(playerColor);
+//                    rollButton.setDisable(false);
+//                    updateStatus("Your turn! Roll the dice.");
+//                    diceValue = 0;
+//                    diceLabel.setText("Dice: -");
+//                }
+//            }
+//        }
+//    }
 
     private void setupBoard() {
         pieceCircles = new HashMap<>();
@@ -424,10 +561,12 @@ public class GameController {
 
         System.out.println((playerColor == 0 ? "RED" : "BLUE") + " rolled " + dice);
 
-        if (!isSinglePlayer && gameService != null) {
+        //if (!isSinglePlayer && gameService != null) {
+        if(!isSinglePlayer){
             try {
-                gameService.sendMove(playerColor, "ROLL:" + dice);
-            } catch (RemoteException e) {
+                //gameService.sendMove(playerColor, "ROLL:" + dice);
+                networkManager.send("ROLL:"+ Integer.toString(playerColor)+ ":" + dice);
+            } catch (Exception e) {
                 System.err.println("Failed to send roll to opponent");
                 e.printStackTrace();
             }
@@ -549,10 +688,12 @@ public class GameController {
 
         performMove(pieceId, moveSteps);
 
-        if (!isSinglePlayer && gameService != null) {
+        //if (!isSinglePlayer && gameService != null) {
+        if(!isSinglePlayer && networkManager != null) {
             try {
-                gameService.sendMove(playerColor, "MOVE:" + pieceId + ":" + moveSteps);
-            } catch (RemoteException e) {
+                networkManager.send("MOVE:" + pieceId + ":" + moveSteps);
+               // gameService.sendMove(playerColor, "MOVE:" + pieceId + ":" + moveSteps);
+            } catch (Exception e) {
                 System.err.println("Failed to send move to opponent");
                 e.printStackTrace();
             }
@@ -578,7 +719,6 @@ public class GameController {
                     state.getCurrentPlayer() == 1 ? PlayerType.PLAYER_RED : PlayerType.PLAYER_BLUE;
 
             GameMove gameMove = new GameMove(enumPlayerType, lastMovedPosition.get());
-
             new Thread(new SaveTheLastGameMoveThread(gameMove)).start();
         }
 
@@ -703,10 +843,12 @@ public class GameController {
             System.out.println("No valid moves for " + (playerColor == 0 ? "RED" : "BLUE"));
             updateStatus("No valid moves! Passing turn...");
 
-            if (!isSinglePlayer && gameService != null) {
+//            if (!isSinglePlayer && gameService != null) {
+            if(!isSinglePlayer && networkManager != null) {
                 try {
-                    gameService.sendMove(playerColor, "MOVE:-1:0");
-                } catch (RemoteException e) {
+                    //gameService.sendMove(playerColor, "MOVE:-1:0");
+                    networkManager.send("MOVE:-1:0");
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
