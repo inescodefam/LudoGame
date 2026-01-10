@@ -82,6 +82,7 @@ public class GameController {
     private Map<Integer, Circle> pieceCircles = new HashMap<>();
     private Circle[] redHomeCircles;
     private Circle[] blueHomeCircles;
+    private int currPlayer;
 
     // Board constants - RED počinje na 55, BLUE na 28, završavaju kad aprijeđu put od 54 polja svaki roll nakon toga je ulazak u kućicu
     private static final int RED_START_CELL = 55;
@@ -171,6 +172,9 @@ public class GameController {
 
         } else {
             playerColor = LudoGame.playerType == PlayerType.PLAYER_RED ? 0 : 1;
+
+            currPlayer = playerColor;
+
             System.out.println("=== MULTIPLAYER MODE: " + (playerColor == 0 ? "RED" : "BLUE") + " ===");
             //connectToRMIServer();
             initializeSocketConnection();
@@ -305,11 +309,38 @@ public class GameController {
                 case "YOUR_TURN":
                   onYourTurnHanleMessage(parts);
                     break;
+                case "LOAD":
+                    // Extract game state data (everything after "LOAD:")
+                    String gameStateData = message.substring(5); // Skip "LOAD:"
+                    onLoadGameHanleMessage(gameStateData);
+                    break;
                 default:
                     System.err.println("Unknown message: " + message);
                     break;
             }
         });
+    }
+
+    private void onLoadGameHanleMessage(String gameStateData) {
+        GameState receivedState = deserializeGameState(gameStateData);
+
+        state.pieces.putAll(receivedState.pieces);
+        state.setLastDiceValue(receivedState.getLastDiceValue());
+        state.setCurrentPlayer(receivedState.getCurrentPlayer());
+
+        System.out.println("||||||||   Player  who owns next turn, player = " + ( receivedState.getCurrentPlayer() == 1 ? "BLUE" : "RED"));
+        System.out.println("|||||||   Player who ACCEPTS loading game, currPlayer = " + currPlayer);
+        //todo disable enable button rolldice
+        if (currPlayer == receivedState.getCurrentPlayer()) {
+            System.out.println("|||||||  My turn = " + (state.getCurrentPlayer() == 1 ? "BLUE" : "RED"));
+            rollButton.setDisable(false);
+        } else {
+            System.out.println("|||||||  Your turn = " + (state.getCurrentPlayer() == 1 ? "BLUE" : "RED"));
+            rollButton.setDisable(true);
+        }
+        updateBoard();
+
+        DialogUtils.showDialog("Game Loaded", "Opponent loaded a saved game. Board updated!", Alert.AlertType.INFORMATION);
     }
 
     private void onYourTurnHanleMessage(String[] parts) {
@@ -1024,17 +1055,65 @@ public class GameController {
 
     public void onLoadClick() {
         GameState lastGameState = GameUtils.loadGame();
+
         if (lastGameState != null) {
 
             state.pieces.putAll(lastGameState.pieces);
             state.setLastDiceValue(lastGameState.getLastDiceValue());
             state.setCurrentPlayer(lastGameState.getCurrentPlayer());
-            playerColor = lastGameState.getCurrentPlayer();
+
+            //todo disable enable button rolldice
+
+            System.out.println("XXXXXX Player  who loads game, currPlayer = " + (currPlayer == 1 ? "BLUE" : "RED"));
+            System.out.println("XXXXXX Player  who owns next turn, player = " + (playerColor == 1 ? "BLUE" : "RED"));
+            if (currPlayer == lastGameState.getCurrentPlayer()) {
+                System.out.println("XXXXXX My turn enable btn = " + (currPlayer == 1 ? "BLUE" : "RED"));
+                updateStatus("Your turn! Roll the dice.");
+                rollButton.setDisable(false);
+            } else {
+                System.out.println("XXXXXX Your turn = " + (playerColor == 1 ? "BLUE" : "RED"));
+                updateStatus("Opponent's turn. Waiting...");
+                rollButton.setDisable(true);
+            }
             updateBoard();
             DialogUtils.showDialog("Load Successful", "Game loaded successfully!", Alert.AlertType.INFORMATION);
+
+            if(!isSinglePlayer && networkManager != null) {
+                String gameStateData = serializeGameState(lastGameState);
+                networkManager.send("LOAD:" + gameStateData);
+            }
         } else {
             DialogUtils.showDialog("Load Failed", "No saved game found!", Alert.AlertType.ERROR);
         }
+    }
+
+    private String serializeGameState(GameState gameState) {
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(gameState.getCurrentPlayer()).append(",");
+        sb.append(gameState.getLastDiceValue());
+
+        for (int i = 0; i < 8; i++) {
+            Piece piece = gameState.pieces.get(i);
+            sb.append(",").append(piece.position);
+        }
+
+        return sb.toString();
+    }
+
+    private GameState deserializeGameState(String data) {
+        String[] parts = data.split(",");
+
+        GameState gameState = new GameState();
+        gameState.setCurrentPlayer(Integer.parseInt(parts[0]));
+        gameState.setLastDiceValue(Integer.parseInt(parts[1]));
+
+        for (int i = 0; i < 8; i++) {
+            Piece piece = gameState.pieces.get(i);
+            piece.position = Integer.parseInt(parts[2 + i]);
+        }
+
+        return gameState;
     }
 
     public void generateDocumentation() {
