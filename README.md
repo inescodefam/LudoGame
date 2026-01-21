@@ -54,9 +54,11 @@ This project is a digital version of the traditional Ludo board game, developed 
 ## Screenshots
 
 Single player:
+
 <img width="1198" height="951" alt="image" src="https://github.com/user-attachments/assets/6afaa629-dcfc-4089-a998-6df1ed0d21e6" />
 
-Multi player:
+Multiplayer:
+
 <img width="1903" height="1034" alt="image" src="https://github.com/user-attachments/assets/7345dc63-fedb-4939-8404-49fcaf5b07ae" />
 
 
