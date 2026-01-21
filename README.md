@@ -23,16 +23,6 @@ This project is a digital version of the traditional Ludo board game, developed 
 - **OOP Principles** - Encapsulation, inheritance, polymorphism
 - **MVC Pattern** - Separation of concerns in architecture
 
-## Project Structure
-
-Single player:
-<img width="1198" height="951" alt="image" src="https://github.com/user-attachments/assets/6afaa629-dcfc-4089-a998-6df1ed0d21e6" />
-
-Multi player:
-<img width="1903" height="1034" alt="image" src="https://github.com/user-attachments/assets/7345dc63-fedb-4939-8404-49fcaf5b07ae" />
-
-
-
 ## How to Play
 
 1. Launch the application
@@ -63,7 +53,12 @@ Multi player:
 
 ## Screenshots
 
-*(Add screenshots of your game here)*
+Single player:
+<img width="1198" height="951" alt="image" src="https://github.com/user-attachments/assets/6afaa629-dcfc-4089-a998-6df1ed0d21e6" />
+
+Multi player:
+<img width="1903" height="1034" alt="image" src="https://github.com/user-attachments/assets/7345dc63-fedb-4939-8404-49fcaf5b07ae" />
+
 
 ## Learning Outcomes
 
