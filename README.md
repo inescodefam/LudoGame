@@ -67,6 +67,7 @@ Multi player:
 - Building interactive UIs with JavaFX
 - Managing game state and player turns
 - Handling user input and events
+- RMI and JNDI 
 
 ## License
 
