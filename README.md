@@ -73,4 +73,4 @@ Multiplayer:
 
 ## License
 
-This project is for educational purposes only.
+This project is for educational purposes only. But you can try it and have fun locally 🥰
